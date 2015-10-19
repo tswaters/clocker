@@ -8,7 +8,7 @@ and never be blindsighted by 3am again!
 
 todo:
 
-[ ] options (colours, etc.)
-[ ] remember startup position / docking (does windows do this?)
-[ ] verify it works in full screen mode (this is why I wrote it)
-[ ] unit tests?
+- [ ] options (colours, etc.)
+- [ ] remember startup position / docking (does windows do this?)
+- [ ] verify it works in full screen mode (this is why I wrote it)
+- [ ] unit tests?
