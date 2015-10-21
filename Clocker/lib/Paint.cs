@@ -61,7 +61,7 @@ namespace Clocker
                     var begPoint = getPoint(x / 60d, x % 5 == 0 ? 0.8 : 0.9);
                     var endPoint = getPoint(x / 60d, 1.0);
                     e.Graphics.DrawLine(tickPen, begPoint, endPoint);
-                    if (Properties.Settings.Default.showNumerals && x % 5 == 0)
+                    if (x % 5 == 0)
                     {
                         var numeral = numerals[(x / 5) - 1];
                         var font = new Font("Segui UI", 16);
