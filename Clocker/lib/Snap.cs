@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace Clocker
 {
-    public partial class Clocker
+    public partial class Clock
     {
         private const int SnapDistance = 50;
 

@@ -16,7 +16,7 @@ namespace Clocker
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Clocker());
+            Application.Run(new Clock());
         }
     }
 }

@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace Clocker
 {
-    public partial class Clocker
+    public partial class Clock
     {
 
         private const int WM_NCLBUTTONDOWN = 0xA1;
@@ -18,7 +18,6 @@ namespace Clocker
 
         private void InitializeDrag()
         {
-            Console.WriteLine(WM_NCLBUTTONDOWN);
             MouseDown += (object o, MouseEventArgs e) =>
             {
                 if (e.Button == MouseButtons.Left)

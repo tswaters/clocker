@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace Clocker
 {
-    public partial class Clocker
+    public partial class Clock
     {
         private const uint WM_NCHITTEST = 0x0084;
         private const uint WM_MOUSEMOVE = 0x0200;
@@ -15,11 +15,6 @@ namespace Clocker
 
         private void InitializeResize()
         {
-            Paint += (object o, PaintEventArgs e) =>
-            {
-                ControlPaint.DrawSizeGrip(e.Graphics, Color.Black, resizeRect);
-            };
-
             Resize += (object o, EventArgs e) =>
             {
                 resizeRect = new Rectangle(Size.Width - RESIZE_HANDLE_SIZE, Size.Height - RESIZE_HANDLE_SIZE, RESIZE_HANDLE_SIZE, RESIZE_HANDLE_SIZE);

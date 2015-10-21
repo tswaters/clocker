@@ -46,11 +46,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Clocker.cs">
+    <Compile Include="Clock.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Clocker.Designer.cs">
-      <DependentUpon>Clocker.cs</DependentUpon>
+    <Compile Include="Clock.Designer.cs">
+      <DependentUpon>Clock.cs</DependentUpon>
     </Compile>
     <Compile Include="lib\Drag.cs">
       <SubType>Form</SubType>
@@ -66,8 +66,8 @@
     <Compile Include="lib\Snap.cs">
       <SubType>Form</SubType>
     </Compile>
-    <EmbeddedResource Include="Clocker.resx">
-      <DependentUpon>Clocker.cs</DependentUpon>
+    <EmbeddedResource Include="Clock.resx">
+      <DependentUpon>Clock.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
