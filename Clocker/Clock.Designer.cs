@@ -38,9 +38,9 @@
             this.exitMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
-            // 
+            //
             // contextMenuStrip1
-            // 
+            //
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.backgroundColorMenu,
             this.foreColorMenu,
@@ -53,44 +53,44 @@
             this.contextMenuStrip1.ShowCheckMargin = true;
             this.contextMenuStrip1.ShowImageMargin = false;
             this.contextMenuStrip1.Size = new System.Drawing.Size(143, 120);
-            // 
+            //
             // backgroundColorMenu
-            // 
+            //
             this.backgroundColorMenu.Name = "backgroundColorMenu";
             this.backgroundColorMenu.Size = new System.Drawing.Size(142, 22);
             this.backgroundColorMenu.Text = "Background";
-            // 
+            //
             // foreColorMenu
-            // 
+            //
             this.foreColorMenu.Name = "foreColorMenu";
             this.foreColorMenu.Size = new System.Drawing.Size(142, 22);
             this.foreColorMenu.Text = "Fore Colour";
-            // 
+            //
             // handColorMenu
-            // 
+            //
             this.handColorMenu.Name = "handColorMenu";
             this.handColorMenu.Size = new System.Drawing.Size(142, 22);
             this.handColorMenu.Text = "Hand Colour";
-            // 
+            //
             // tickColorMenu
-            // 
+            //
             this.tickColorMenu.Name = "tickColorMenu";
             this.tickColorMenu.Size = new System.Drawing.Size(142, 22);
             this.tickColorMenu.Text = "Tick Colour";
-            // 
+            //
             // toolStripSeparator1
-            // 
+            //
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(139, 6);
-            // 
+            //
             // exitToolStripMenuItem
-            // 
+            //
             this.exitMenu.Name = "exitToolStripMenuItem";
             this.exitMenu.Size = new System.Drawing.Size(142, 22);
             this.exitMenu.Text = "Exit";
-            // 
+            //
             // Clock
-            // 
+            //
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));

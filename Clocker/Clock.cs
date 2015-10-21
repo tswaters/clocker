@@ -13,7 +13,7 @@ namespace Clocker
             InitializeDrag();
             InitializeResize();
             InitializePaint();
-            
+
             if (!Properties.Settings.Default.lastWindowSize.IsEmpty)
             {
                 Size = Properties.Settings.Default.lastWindowSize;
@@ -38,7 +38,7 @@ namespace Clocker
             };
 
         }
-        
+
 
         private void showColourDialog (string settingName)
         {
@@ -49,6 +49,6 @@ namespace Clocker
                 Properties.Settings.Default[settingName] = dialog.Color;
                 Properties.Settings.Default.Save();
             }
-        }        
+        }
     }
 }
