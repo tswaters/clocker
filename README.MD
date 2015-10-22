@@ -10,5 +10,6 @@ todo:
 
 - [x] options (colours, etc.)
 - [x] remember startup position / docking (does windows do this?)
-- [ ] verify it works in full screen mode (this is why I wrote it)
+- [x] verify it works in full screen mode (this is why I wrote it)
+- [ ] create a setup project that can set as startup (I'm lazy)
 - [ ] unit tests?
