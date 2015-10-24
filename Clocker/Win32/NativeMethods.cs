@@ -3,10 +3,11 @@ using System.Runtime.InteropServices;
 
 namespace Clocker.Win32
 {
-    public class NativeMethods
+    public static class NativeMethods
     {
 
         [DllImport("User32.dll")]
+        [return: MarshalAs(UnmanagedType.U1)]
         internal static extern bool ReleaseCapture();
 
         [DllImport("User32.dll")]

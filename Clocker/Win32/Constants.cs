@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Clocker.Win32
 {
-    class Constants
+    static class Constants
     {
         public const int WM_NCLBUTTONDOWN = 0xA1;
         public const int HTCAPTION = 0x2;

@@ -1,24 +1,40 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
+
+using Clocker.UI;
+using Clocker.Interfaces;
+using Clocker.Services;
+using System.ComponentModel;
 
 namespace Clocker
 {
     public partial class Clock : Form
     {
-        private const int SnapDistance = 50;
+        private const int SNAP_DISTANCE = 50;
 
+        private Timer _timer;
+        private Rectangle _resizeRect;
+        private IMathService _mathService;
+        private IDrawable _background;
+        private IDrawable _hands;
+        private IDrawable _numerals;
+        private IDrawable _ticks;
+
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1806:DoNotIgnoreMethodResults", MessageId = "Clocker.Win32.NativeMethods.SendMessage(System.IntPtr,System.Int32,System.Int32,System.Int32)", Justification = "Can't do anything with it ")]
         public Clock()
         {
             InitializeComponent();
+            InitializeMenu();
 
             SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
             ResizeRedraw = true;
 
-            Drawing.Hands.Setup(Properties.Settings.Default.handColor);
-            Drawing.Tick.Setup(Properties.Settings.Default.tickColor);
-            Drawing.Numerals.Setup(Properties.Settings.Default.foreColor);
+            _mathService = new MathService(ClientRectangle);
+            _background = new Background(Properties.Settings.Default.backgroundColor);
+            _hands = new Hands(_mathService, new DateTimeService(), Properties.Settings.Default.handColor);
+            _numerals = new Numerals(_mathService, Properties.Settings.Default.foreColor);
+            _ticks = new Tick(_mathService, Properties.Settings.Default.tickColor);
 
             if (!Properties.Settings.Default.lastWindowSize.IsEmpty)
             {
@@ -32,35 +48,50 @@ namespace Clocker
 
             MouseDown += (object o, MouseEventArgs e) =>
             {
-                Win32.Events.MouseDown(this, e);
+                if (e.Button == MouseButtons.Left)
+                {
+                    Win32.NativeMethods.ReleaseCapture();
+                    Win32.NativeMethods.SendMessage(Handle, Win32.Constants.WM_NCLBUTTONDOWN, Win32.Constants.HTCAPTION, 0);
+                }
             };
 
-            Resize += (object o, EventArgs e) =>
+            ResizeBegin += (o, e) => { _timer.Stop(); };
+            ResizeEnd += (o, e) => { _timer.Start(); };
+
+            Resize += (o, e) =>
             {
-                Win32.Resize.SetResizeRect(Size);
-                var center = new PointF(ClientRectangle.Width / 2, ClientRectangle.Height / 2);
-                Drawing.Maths.center = center;
-                Drawing.Maths.radius = (center.X < center.Y ? center.X : center.Y) * 0.7;
+                _resizeRect = new Rectangle
+                {
+                    X = Size.Width - Win32.Constants.RESIZE_HANDLE_SIZE,
+                    Y = Size.Height - Win32.Constants.RESIZE_HANDLE_SIZE,
+                    Width = Win32.Constants.RESIZE_HANDLE_SIZE,
+                    Height = Win32.Constants.RESIZE_HANDLE_SIZE
+                };
+                _mathService.Rectangle = ClientRectangle;
+            };
+
+            Properties.Settings.Default.PropertyChanged += (o, e) =>
+            {
+                _hands.Color = Properties.Settings.Default.handColor;
+                _numerals.Color = Properties.Settings.Default.foreColor;
+                _ticks.Color = Properties.Settings.Default.tickColor;
+                _background.Color = Properties.Settings.Default.backgroundColor;
+                Invalidate();
             };
 
             Paint += (object o, PaintEventArgs e) =>
             {
-                e.Graphics.Clear(Properties.Settings.Default.backgroundColor);
-                Drawing.Hands.DrawHands(e.Graphics);
-                Drawing.Numerals.DrawNumerals(e.Graphics);
-                Drawing.Tick.DrawTicks(e.Graphics);
-                Drawing.Grip.DrawGrip(e.Graphics);
+                var graphicsService = new GraphicsService(e.Graphics);
+                _background.Draw(graphicsService);
+                _hands.Draw(graphicsService);
+                _numerals.Draw(graphicsService);
+                _ticks.Draw(graphicsService);
+
+                // draw the resize grip
+                var backgroundColor = Properties.Settings.Default.backgroundColor;
+                var contrast = (backgroundColor.ToArgb() & 0x00FFFFFFFF) > (0xffffff / 6) ? Color.Black : Color.White;
+                ControlPaint.DrawSizeGrip(e.Graphics, contrast, _resizeRect);
             };
-
-            exitMenu.Click += (o, e) => { Close(); };
-
-            foreColorMenu.Click += (o, e) => { showColourDialog("foreColor"); };
-
-            handColorMenu.Click += (o, e) => { showColourDialog("handColor"); };
-
-            tickColorMenu.Click += (o, e) => { showColourDialog("tickColor"); };
-
-            backgroundColorMenu.Click += (o, e) => { showColourDialog("backgroundColor"); };
 
             FormClosing += (o, e) =>
             {
@@ -71,20 +102,32 @@ namespace Clocker
 
             OnResize(EventArgs.Empty);
 
-            var timer = new Timer { Interval = 1000 };
-            timer.Tick += (o, e) => { Invalidate(); };
-            timer.Start();
+            _timer = new Timer();
+            _timer.Interval = 1000;
+            _timer.Tick += (o, e) => { Invalidate(); };
+            _timer.Start();
 
         }
 
         /// <summary>
-        /// Handles window messages - passes along to Win32.Resize.HandleMessage
-        /// If that returns false, pass along contorl to the base.
+        /// Handles window messages - if inside the resize grip, .
         /// </summary>
         /// <param name="m"></param>
         protected override void WndProc(ref Message m)
         {
-            if (!Win32.Resize.HandleMessage(ref m, this))
+            var handled = false;
+            if (m.Msg == Win32.Constants.WM_NCHITTEST || m.Msg == Win32.Constants.WM_MOUSEMOVE)
+            {
+                Point screenPoint = new Point(m.LParam.ToInt32());
+                Point clientPoint = PointToClient(screenPoint);
+                if (_resizeRect.Contains(clientPoint))
+                {
+                    m.Result = (IntPtr)Win32.Constants.HTBOTTOMRIGHT;
+                    handled = true;
+                }
+            }
+
+            if (!handled)
             {
                 base.WndProc(ref m);
             };
@@ -110,10 +153,10 @@ namespace Clocker
         /// <param name="pos">Position to check</param>
         /// <param name="edge">The edge to check against</param>
         /// <returns></returns>
-        private bool DoSnap(int pos, int edge)
+        private static bool DoSnap(int pos, int edge)
         {
             int delta = pos - edge;
-            return delta > 0 && delta <= SnapDistance;
+            return delta > 0 && delta <= SNAP_DISTANCE;
         }
 
         /// <summary>
@@ -124,27 +167,93 @@ namespace Clocker
         {
             if (disposing)
             {
-                Drawing.Hands.Cleanup();
-                Drawing.Numerals.Cleanup();
-                Drawing.Tick.Cleanup();
-                if (components != null) { components.Dispose(); }
+                if (_background != null) { _background.Dispose();  }
+                if (_timer != null) { _timer.Dispose(); }
+                if (_hands != null) { _hands.Dispose(); }
+                if (_numerals != null) { _numerals.Dispose(); }
+                if (_ticks != null) { _ticks.Dispose(); }
+                if (_components != null) { _components.Dispose(); }
             }
             base.Dispose(disposing);
+        }
+
+        #region "Context menu, options"
+
+        private IContainer _components;
+        private ContextMenuStrip _contextMenuStrip1;
+        private ToolStripMenuItem _menuExit;
+        private ToolStripSeparator _menuSeparator1;
+        private ToolStripMenuItem _menuBackgroundColor;
+        private ToolStripMenuItem _menuForeColor;
+        private ToolStripMenuItem _menuHandColor;
+        private ToolStripMenuItem _menuTickColor;
+
+        private void InitializeMenu ()
+        {
+            _components = new Container();
+            _contextMenuStrip1 = new ContextMenuStrip(_components);
+            _contextMenuStrip1.RenderMode = ToolStripRenderMode.Professional;
+            _contextMenuStrip1.Size = new Size(143, 120);
+
+            _menuBackgroundColor = new ToolStripMenuItem();
+            _menuBackgroundColor.Text = Strings.MENUS_BACKGROUND;
+            _menuBackgroundColor.Size = new Size(142, 22);
+
+            _menuForeColor = new ToolStripMenuItem();
+            _menuForeColor.Text = Strings.MENUS_FORE_COLOR;
+            _menuForeColor.Size = new Size(142, 22);
+
+            _menuHandColor = new ToolStripMenuItem();
+            _menuHandColor.Text = Strings.MENUS_HAND_COLOR;
+            _menuHandColor.Size = new Size(142, 22);
+
+            _menuTickColor = new ToolStripMenuItem();
+            _menuTickColor.Text = Strings.MENUS_TICK_COLOR;
+            _menuTickColor.Size = new Size(142, 22);
+
+            _menuSeparator1 = new ToolStripSeparator();
+            _menuSeparator1.Size = new Size(139, 6);
+
+            _menuExit = new ToolStripMenuItem();
+            _menuExit.Text = Strings.MENUS_EXIT;
+            _menuExit.Size = new Size(142, 22);
+
+            _contextMenuStrip1.Items.AddRange(new ToolStripItem[]
+            {
+                _menuBackgroundColor,
+                _menuForeColor,
+                _menuHandColor,
+                _menuTickColor,
+                _menuSeparator1,
+                _menuExit
+            });
+
+            _menuExit.Click += (o, e) => { Close(); };
+            _menuForeColor.Click += (o, e) => { showColourDialog("foreColor"); };
+            _menuHandColor.Click += (o, e) => { showColourDialog("handColor"); };
+            _menuTickColor.Click += (o, e) => { showColourDialog("tickColor"); };
+            _menuBackgroundColor.Click += (o, e) => { showColourDialog("backgroundColor"); };
+
+            ContextMenuStrip = _contextMenuStrip1;
         }
 
         /// <summary>
         /// Shows a colour selection dialog and sets related setting.
         /// </summary>
         /// <param name="settingName">setting name to set.</param>
-        private void showColourDialog (string settingName)
+        private static void showColourDialog(string settingName)
         {
-            var dialog = new ColorDialog();
-            dialog.Color = (Color) Properties.Settings.Default[settingName];
-            if (dialog.ShowDialog() == DialogResult.OK)
+            using (var dialog = new ColorDialog())
             {
-                Properties.Settings.Default[settingName] = dialog.Color;
-                Properties.Settings.Default.Save();
+                dialog.Color = (Color)Properties.Settings.Default[settingName];
+                if (dialog.ShowDialog() == DialogResult.OK)
+                {
+                    Properties.Settings.Default[settingName] = dialog.Color;
+                    Properties.Settings.Default.Save();
+                }
             }
         }
+
+        #endregion
     }
 }

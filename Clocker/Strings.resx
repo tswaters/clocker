@@ -117,4 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="MENUS_BACKGROUND" xml:space="preserve">
+    <value>Background</value>
+  </data>
+  <data name="MENUS_EXIT" xml:space="preserve">
+    <value>Exit</value>
+  </data>
+  <data name="MENUS_FORE_COLOR" xml:space="preserve">
+    <value>Font Colour</value>
+  </data>
+  <data name="MENUS_HAND_COLOR" xml:space="preserve">
+    <value>Hand Colour</value>
+  </data>
+  <data name="MENUS_TICK_COLOR" xml:space="preserve">
+    <value>Tick Colour</value>
+  </data>
 </root>
