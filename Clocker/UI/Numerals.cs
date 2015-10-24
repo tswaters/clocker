@@ -94,22 +94,23 @@ namespace Clocker.UI
 
         protected virtual void Dispose(bool disposing)
         {
-            if (_fontBrush != null)
-            {
-                _fontBrush.Dispose();
-                _fontBrush = null;
-            }
-            if (_font != null)
-            {
-                _font.Dispose();
-                _fontBrush = null;
-            }
-            if (_stringFormat != null)
-            {
-                _stringFormat.Dispose();
-                _stringFormat = null;
+            if (disposing) {
+                if (_fontBrush != null)
+                {
+                    _fontBrush.Dispose();
+                    _fontBrush = null;
+                }
+                if (_font != null)
+                {
+                    _font.Dispose();
+                    _fontBrush = null;
+                }
+                if (_stringFormat != null)
+                {
+                    _stringFormat.Dispose();
+                    _stringFormat = null;
+                }
             }
         }
-
     }
 }
