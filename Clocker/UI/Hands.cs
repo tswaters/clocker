@@ -38,17 +38,22 @@ namespace Clocker.UI
         /// <summary>
         /// Pen to use for the second hand
         /// </summary>
-        private Pen _secondPen;
+        private SolidBrush _secondBrush;
 
         /// <summary>
         /// Pen to use for the minute hand
         /// </summary>
-        private Pen _minutePen;
+        private SolidBrush _minuteBrush;
 
         /// <summary>
         /// Pen to use for the hour hand
         /// </summary>
-        private Pen _hourlyPen;
+        private SolidBrush _hourlyBrush;
+
+        /// <summary>
+        /// Pen used for the center circle.
+        /// </summary>
+        private SolidBrush _centerBrush;
 
         /// <summary>
         /// Constructor. Sets up maths reference and initial colour.
@@ -59,9 +64,10 @@ namespace Clocker.UI
         {
             _datetime = dateTime;
             _mathService = mathService;
-            _secondPen = new Pen(initialColor, 1);
-            _minutePen = new Pen(initialColor, 2);
-            _hourlyPen = new Pen(initialColor, 3);
+            _secondBrush = new SolidBrush(initialColor);
+            _minuteBrush = new SolidBrush(initialColor);
+            _hourlyBrush = new SolidBrush(initialColor);
+            _centerBrush = new SolidBrush(initialColor);
         }
 
         /// <summary>
@@ -72,9 +78,10 @@ namespace Clocker.UI
         {
             set
             {
-                _secondPen.Color = value;
-                _minutePen.Color = value;
-                _hourlyPen.Color = value;
+                _secondBrush.Color = value;
+                _minuteBrush.Color = value;
+                _hourlyBrush.Color = value;
+                _centerBrush.Color = value;
             }
         }
 
@@ -93,9 +100,22 @@ namespace Clocker.UI
             var second = (now.Second / 60d);
             var minute = (now.Minute / 60d) + (second / 60d);
             var hourly = (now.Hour / 12d) + (minute / 12d);
-            graphics.DrawLine(_secondPen, _mathService.Center, _mathService.GetPoint(second, SecondLength));
-            graphics.DrawLine(_minutePen, _mathService.Center, _mathService.GetPoint(minute, MinuteLength));
-            graphics.DrawLine(_hourlyPen, _mathService.Center, _mathService.GetPoint(hourly, HourLength));
+
+            DrawHand(_secondBrush, second, SecondLength, 0.005f, graphics);
+            DrawHand(_minuteBrush, minute, MinuteLength, 0.006f, graphics);
+            DrawHand(_hourlyBrush, hourly, HourLength, 0.01f, graphics);
+        }
+
+        private void DrawHand(Brush brush, double interval, double length, double width, IGraphicsService graphics)
+        {
+            graphics.FillPolygon(brush, new PointF[]
+            {
+                _mathService.GetPoint(interval + 0.25f, Center.CircleSize / 2),
+                _mathService.GetPoint(interval + width, length * 0.95f),
+                _mathService.GetPoint(interval, length),
+                _mathService.GetPoint(interval - width, length * 0.95f),
+                _mathService.GetPoint(interval - 0.25f, Center.CircleSize / 2)
+            });
         }
 
         /// <summary>
@@ -111,20 +131,25 @@ namespace Clocker.UI
         {
             if (disposing)
             {
-                if (_secondPen != null)
+                if (_centerBrush != null)
                 {
-                    _secondPen.Dispose();
-                    _secondPen = null;
+                    _centerBrush.Dispose();
+                    _centerBrush = null;
                 }
-                if (_minutePen != null)
+                if (_secondBrush != null)
                 {
-                    _minutePen.Dispose();
-                    _minutePen = null;
+                    _secondBrush.Dispose();
+                    _secondBrush = null;
                 }
-                if (_hourlyPen != null)
+                if (_minuteBrush != null)
                 {
-                    _hourlyPen.Dispose();
-                    _hourlyPen = null;
+                    _minuteBrush.Dispose();
+                    _minuteBrush = null;
+                }
+                if (_hourlyBrush != null)
+                {
+                    _hourlyBrush.Dispose();
+                    _hourlyBrush = null;
                 }
             }
         }

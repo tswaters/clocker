@@ -28,9 +28,7 @@ namespace Clocker
         {
             InitializeComponent();
             InitializeMenu();
-
-            SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer, true);
-            ResizeRedraw = true;
+            SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.OptimizedDoubleBuffer | ControlStyles.ResizeRedraw, true);
 
             _mathService = new MathService(ClientRectangle);
             _background = new Background(Properties.Settings.Default.backgroundColor);
@@ -76,6 +74,7 @@ namespace Clocker
 
             Paint += (object o, PaintEventArgs e) =>
             {
+                e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
                 _graphicsService.Graphics = e.Graphics;
                 _background.Draw(_graphicsService);
                 _hands.Draw(_graphicsService);

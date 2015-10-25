@@ -8,6 +8,10 @@ namespace Clocker.Services
     {
         public Graphics Graphics { get; set; }
 
+        public void FillPolygon(Brush brush, PointF[] points)
+        {
+            Graphics.FillPolygon(brush, points);
+        }
 
         public void FillEllipse(Brush brush, Rectangle rectangle)
         {
