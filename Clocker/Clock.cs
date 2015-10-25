@@ -14,13 +14,14 @@ namespace Clocker
         private const int SNAP_DISTANCE = 50;
 
         private Timer _timer;
-        private Rectangle _resizeRect;
+        private IGraphicsService _graphicsService = new GraphicsService();
         private IMathService _mathService;
         private IDrawable _background;
         private IDrawable _hands;
         private IDrawable _numerals;
         private IDrawable _ticks;
         private IDrawable _center;
+        private IDrawable _resizeGrip;
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1806:DoNotIgnoreMethodResults", MessageId = "Clocker.Win32.NativeMethods.SendMessage(System.IntPtr,System.Int32,System.Int32,System.Int32)", Justification = "Can't do anything with it ")]
         public Clock()
@@ -37,6 +38,7 @@ namespace Clocker
             _numerals = new Numerals(_mathService, Properties.Settings.Default.foreColor);
             _ticks = new Tick(_mathService, Properties.Settings.Default.tickColor);
             _center = new Center(_mathService, Properties.Settings.Default.handColor);
+            _resizeGrip = new ResizeGrip(_mathService);
 
             if (!Properties.Settings.Default.lastWindowSize.IsEmpty)
             {
@@ -59,18 +61,7 @@ namespace Clocker
 
             ResizeBegin += (o, e) => { _timer.Stop(); };
             ResizeEnd += (o, e) => { _timer.Start(); };
-
-            Resize += (o, e) =>
-            {
-                _resizeRect = new Rectangle
-                {
-                    X = Size.Width - Win32.Constants.RESIZE_HANDLE_SIZE,
-                    Y = Size.Height - Win32.Constants.RESIZE_HANDLE_SIZE,
-                    Width = Win32.Constants.RESIZE_HANDLE_SIZE,
-                    Height = Win32.Constants.RESIZE_HANDLE_SIZE
-                };
-                _mathService.Rectangle = ClientRectangle;
-            };
+            Resize += (o, e) => { _mathService.Rectangle = ClientRectangle; };
 
             Properties.Settings.Default.PropertyChanged += (o, e) =>
             {
@@ -79,22 +70,19 @@ namespace Clocker
                 _ticks.Color = Properties.Settings.Default.tickColor;
                 _background.Color = Properties.Settings.Default.backgroundColor;
                 _center.Color = Properties.Settings.Default.handColor;
+                _resizeGrip.Color = Properties.Settings.Default.backgroundColor;
                 Invalidate();
             };
 
             Paint += (object o, PaintEventArgs e) =>
             {
-                var graphicsService = new GraphicsService(e.Graphics);
-                _background.Draw(graphicsService);
-                _hands.Draw(graphicsService);
-                _numerals.Draw(graphicsService);
-                _ticks.Draw(graphicsService);
-                _center.Draw(graphicsService);
-
-                // draw the resize grip
-                var backgroundColor = Properties.Settings.Default.backgroundColor;
-                var contrast = (backgroundColor.ToArgb() & 0x00FFFFFFFF) > (0xffffff / 6) ? Color.Black : Color.White;
-                ControlPaint.DrawSizeGrip(e.Graphics, contrast, _resizeRect);
+                _graphicsService.Graphics = e.Graphics;
+                _background.Draw(_graphicsService);
+                _hands.Draw(_graphicsService);
+                _numerals.Draw(_graphicsService);
+                _ticks.Draw(_graphicsService);
+                _center.Draw(_graphicsService);
+                _resizeGrip.Draw(_graphicsService);
             };
 
             FormClosing += (o, e) =>
@@ -124,7 +112,7 @@ namespace Clocker
             {
                 Point screenPoint = new Point(m.LParam.ToInt32());
                 Point clientPoint = PointToClient(screenPoint);
-                if (_resizeRect.Contains(clientPoint))
+                if (_mathService.ResizeRect.Contains(clientPoint))
                 {
                     m.Result = (IntPtr)Win32.Constants.HTBOTTOMRIGHT;
                     handled = true;
@@ -171,6 +159,7 @@ namespace Clocker
         {
             if (disposing)
             {
+                if (_resizeGrip != null) { _resizeGrip.Dispose(); }
                 if (_center != null) { _center.Dispose(); }
                 if (_background != null) { _background.Dispose();  }
                 if (_timer != null) { _timer.Dispose(); }

@@ -76,5 +76,23 @@ namespace Clocker.Services
             centerPoint.Offset(-centerSize.Width / 2, -centerSize.Height / 2);
             return new Rectangle(centerPoint, centerSize);
         }
+
+        /// <summary>
+        /// Returns a rectangle for the resize rect (bottom right plus a constant size)
+        /// </summary>
+        public Rectangle ResizeRect
+        {
+            get
+            {
+                return new Rectangle
+                {
+                    X = Rectangle.Width - Win32.Constants.RESIZE_HANDLE_SIZE,
+                    Y = Rectangle.Height - Win32.Constants.RESIZE_HANDLE_SIZE,
+                    Width = Win32.Constants.RESIZE_HANDLE_SIZE,
+                    Height = Win32.Constants.RESIZE_HANDLE_SIZE
+                };
+            }
+        }
+
     }
 }
