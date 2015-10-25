@@ -20,6 +20,7 @@ namespace Clocker
         private IDrawable _hands;
         private IDrawable _numerals;
         private IDrawable _ticks;
+        private IDrawable _center;
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA1806:DoNotIgnoreMethodResults", MessageId = "Clocker.Win32.NativeMethods.SendMessage(System.IntPtr,System.Int32,System.Int32,System.Int32)", Justification = "Can't do anything with it ")]
         public Clock()
@@ -35,6 +36,7 @@ namespace Clocker
             _hands = new Hands(_mathService, new DateTimeService(), Properties.Settings.Default.handColor);
             _numerals = new Numerals(_mathService, Properties.Settings.Default.foreColor);
             _ticks = new Tick(_mathService, Properties.Settings.Default.tickColor);
+            _center = new Center(_mathService, Properties.Settings.Default.handColor);
 
             if (!Properties.Settings.Default.lastWindowSize.IsEmpty)
             {
@@ -76,6 +78,7 @@ namespace Clocker
                 _numerals.Color = Properties.Settings.Default.foreColor;
                 _ticks.Color = Properties.Settings.Default.tickColor;
                 _background.Color = Properties.Settings.Default.backgroundColor;
+                _center.Color = Properties.Settings.Default.handColor;
                 Invalidate();
             };
 
@@ -86,6 +89,7 @@ namespace Clocker
                 _hands.Draw(graphicsService);
                 _numerals.Draw(graphicsService);
                 _ticks.Draw(graphicsService);
+                _center.Draw(graphicsService);
 
                 // draw the resize grip
                 var backgroundColor = Properties.Settings.Default.backgroundColor;
@@ -167,6 +171,7 @@ namespace Clocker
         {
             if (disposing)
             {
+                if (_center != null) { _center.Dispose(); }
                 if (_background != null) { _background.Dispose();  }
                 if (_timer != null) { _timer.Dispose(); }
                 if (_hands != null) { _hands.Dispose(); }

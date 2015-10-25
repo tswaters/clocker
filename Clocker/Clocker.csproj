@@ -85,6 +85,7 @@
     <Compile Include="Interfaces\IMaths.cs" />
     <Compile Include="Services\MathService.cs" />
     <Compile Include="UI\Background.cs" />
+    <Compile Include="UI\Center.cs" />
     <Compile Include="UI\Numerals.cs" />
     <Compile Include="UI\Hands.cs" />
     <Compile Include="UI\Tick.cs" />
@@ -144,6 +145,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

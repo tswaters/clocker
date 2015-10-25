@@ -63,5 +63,18 @@ namespace Clocker.Services
             var targetY = Center.Y + (Math.Sin(value) * Radius * length);
             return new PointF((float)targetX, (float)targetY);
         }
+
+        /// <summary>
+        /// Retrieves a rectangle centered around the clock at a specified size (% of radius)
+        /// </summary>
+        /// <param name="size"></param>
+        /// <returns></returns>
+        public Rectangle GetCenterRect(double size)
+        {
+            var centerSize = new Size((int)(Radius * size), (int)(Radius * size));
+            var centerPoint = new Point((int)Center.X, (int)Center.Y);
+            centerPoint.Offset(-centerSize.Width / 2, -centerSize.Height / 2);
+            return new Rectangle(centerPoint, centerSize);
+        }
     }
 }

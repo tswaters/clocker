@@ -13,6 +13,11 @@ namespace Clocker.Services
             _graphics = graphics;
         }
 
+        public void FillEllipse(Brush brush, Rectangle rectangle)
+        {
+            Graphics.FillEllipse(brush, rectangle);
+        }
+
         public void DrawLine(Pen pen, PointF startPoint, PointF endPoint)
         {
             _graphics.DrawLine(pen, startPoint, endPoint);
