@@ -51,11 +51,6 @@ namespace Clocker.UI
         private SolidBrush _hourlyBrush;
 
         /// <summary>
-        /// Pen used for the center circle.
-        /// </summary>
-        private SolidBrush _centerBrush;
-
-        /// <summary>
         /// Constructor. Sets up maths reference and initial colour.
         /// </summary>
         /// <param name="mathService"></param>
@@ -67,7 +62,6 @@ namespace Clocker.UI
             _secondBrush = new SolidBrush(initialColor);
             _minuteBrush = new SolidBrush(initialColor);
             _hourlyBrush = new SolidBrush(initialColor);
-            _centerBrush = new SolidBrush(initialColor);
         }
 
         /// <summary>
@@ -81,7 +75,6 @@ namespace Clocker.UI
                 _secondBrush.Color = value;
                 _minuteBrush.Color = value;
                 _hourlyBrush.Color = value;
-                _centerBrush.Color = value;
             }
         }
 
@@ -131,11 +124,6 @@ namespace Clocker.UI
         {
             if (disposing)
             {
-                if (_centerBrush != null)
-                {
-                    _centerBrush.Dispose();
-                    _centerBrush = null;
-                }
                 if (_secondBrush != null)
                 {
                     _secondBrush.Dispose();
