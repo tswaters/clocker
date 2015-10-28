@@ -9,7 +9,7 @@ using Clocker.Interfaces;
 
 namespace Clocker.UI
 {
-    public class Center : IDrawable
+    public sealed class Center : IDrawable
     {
         /// <summary>
         /// Size of the circle at the center of the clock (% of radius)
@@ -66,21 +66,7 @@ namespace Clocker.UI
         /// </summary>
         public void Dispose()
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
+            if (_brush != null) _brush.Dispose();
         }
-
-        /// <summary>
-        /// Actually disposes resources.
-        /// </summary>
-        /// <param name="disposing"></param>
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                if (_brush != null) _brush.Dispose();
-            }
-        }
-
     }
 }

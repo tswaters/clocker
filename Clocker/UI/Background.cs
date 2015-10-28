@@ -4,7 +4,7 @@ using Clocker.Interfaces;
 
 namespace Clocker.UI
 {
-    public class Background : IDrawable
+    public sealed class Background : IDrawable
     {
         /// <summary>
         /// Color to use for the background.
@@ -51,13 +51,6 @@ namespace Clocker.UI
         /// </summary>
         public void Dispose()
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            // nothing to dispose :(
         }
     }
 }

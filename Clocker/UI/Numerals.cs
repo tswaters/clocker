@@ -7,7 +7,7 @@ namespace Clocker.UI
     /// <summary>
     /// Responsible for drawing roman numerals on an analog clock.
     /// </summary>
-    public class Numerals : IDrawable
+    public sealed class Numerals : IDrawable
     {
         /// <summary>
         /// Position of the numerals, % of full radius.
@@ -88,17 +88,9 @@ namespace Clocker.UI
         /// </summary>
         public void Dispose()
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing) {
-                if (_fontBrush != null) _fontBrush.Dispose();
-                if (_font != null) _font.Dispose();
-                if (_stringFormat != null) _stringFormat.Dispose();
-            }
+            if (_fontBrush != null) _fontBrush.Dispose();
+            if (_font != null) _font.Dispose();
+            if (_stringFormat != null) _stringFormat.Dispose();
         }
     }
 }

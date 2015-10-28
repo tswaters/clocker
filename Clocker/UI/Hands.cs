@@ -8,7 +8,7 @@ namespace Clocker.UI
     /// <summary>
     /// Responsible for drawing minute/second/hour hands on an analog clock.
     /// </summary>
-    public class Hands : IDrawable
+    public sealed class Hands : IDrawable
     {
         /// <summary>
         /// Constants for the hands - hour/minute/second each have different values.
@@ -209,18 +209,9 @@ namespace Clocker.UI
         /// </summary>
         public void Dispose()
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                if (_secondBrush != null) _secondBrush.Dispose();
-                if (_minuteBrush != null) _minuteBrush.Dispose();
-                if (_hourlyBrush != null) _hourlyBrush.Dispose();
-            }
+            if (_secondBrush != null) _secondBrush.Dispose();
+            if (_minuteBrush != null) _minuteBrush.Dispose();
+            if (_hourlyBrush != null) _hourlyBrush.Dispose();
         }
     }
 }

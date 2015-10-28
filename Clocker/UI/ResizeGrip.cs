@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace Clocker.UI
 {
-    class ResizeGrip : IDrawable
+    public sealed class ResizeGrip : IDrawable
     {
         /// <summary>
         /// Reference to the math service
@@ -47,13 +47,6 @@ namespace Clocker.UI
         /// </summary>
         public void Dispose()
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            // nothing to see here
         }
 
         /// <summary>
@@ -62,6 +55,11 @@ namespace Clocker.UI
         /// <param name="graphics"></param>
         public void Draw(IGraphicsService graphics)
         {
+            if (graphics == null)
+            {
+                throw new ArgumentNullException("graphics");
+            }
+
             ControlPaint.DrawSizeGrip(graphics.Graphics, _color, _mathService.ResizeRect);
         }
     }
