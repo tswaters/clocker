@@ -11,24 +11,97 @@ namespace Clocker.UI
     public class Hands : IDrawable
     {
         /// <summary>
-        /// Length of the hour hand, % of full radius.
+        /// Constants for the hands - hour/minute/second each have different values.
         /// </summary>
-        public const double HourLength = 0.4d;
+        private static class Constants
+        {
+            /// <summary>
+            /// 1/4 of a the cirlce, used to move the base of the hand out from the center.
+            /// </summary>
+            public const double QuarterCircle = 0.25d;
+
+            /// <summary>
+            /// Length of the hour hand (% of radius)
+            /// </summary>
+            public const double HourlyLength = 0.40d;
+
+            /// <summary>
+            /// Max width of the hour hand (adds to angle)
+            /// </summary>
+            public const double HourlyWidth = 0.010d;
+
+            /// <summary>
+            /// Length of the hour hand at max width (% of radius)
+            /// </summary>
+            public const double HourlyMaxWidthLength = 0.97d;
+
+            /// <summary>
+            /// Max width of the minute hand (adds to angle)
+            /// </summary>
+            public const double MinuteLength = 0.50d;
+
+            /// <summary>
+            /// Max width of the minute hand (adds to angle)
+            /// </summary>
+            public const double MinuteWidth = 0.006d;
+
+            /// <summary>
+            /// Length of the minute hand at max width (% of radius)
+            /// </summary>
+            public const double MinuteMaxWidthLength = 0.90d;
+
+            /// <summary>
+            /// Max width of the second hand (adds to angle)
+            /// </summary>
+            public const double SecondLength = 0.60d;
+
+            /// <summary>
+            /// Max width of the second hand (adds to angle)
+            /// </summary>
+            public const double SecondWidth = 0.003d;
+
+            /// <summary>
+            /// Length of the second hand at max width (% of radius)
+            /// </summary>
+            public const double SecondMaxWidthLength = 1.00d;
+        }
 
         /// <summary>
-        /// Length of the minute hand, % of full radius.
+        /// Structure to hold the arguments passed to DrawHand
         /// </summary>
-        public const double MinuteLength = 0.5d;
+        private class DrawArgs
+        {
+            /// <summary>
+            /// brush to use for drawing the hand
+            /// </summary>
+            public SolidBrush Brush;
 
-        /// <summary>
-        /// Length of the second hand, % of full radius.
-        /// </summary>
-        public const double SecondLength = 0.6d;
+            /// <summary>
+            /// base angle for the hand (between 0 and 1)
+            /// </summary>
+            public double Angle;
+
+            /// <summary>
+            /// length to use for the hand (second &gt; minute &gt ;hour)
+            /// </summary>
+            public double Length;
+
+            /// <summary>
+            /// the length at which the hand reaches it's maxiumum width
+            /// </summary>
+            public double MaxWidthLength;
+
+            /// <summary>
+            /// width of the hand (adds/subtracts to interval)
+            /// </summary>
+            public double Width;
+        }
+
 
         /// <summary>
         /// Interface for retrieving the date.
         /// </summary>
-        private IDateTimeService _datetime;
+        private IDateTimeService _dateTimeService;
 
         /// <summary>
         /// Reference to the maths object.
@@ -54,11 +127,12 @@ namespace Clocker.UI
         /// Constructor. Sets up maths reference and initial colour.
         /// </summary>
         /// <param name="mathService"></param>
+        /// <param name="dateTimeService"></param>
         /// <param name="initialColor"></param>
-        public Hands (IMathService mathService, IDateTimeService dateTime, Color initialColor)
+        public Hands (IMathService mathService, IDateTimeService dateTimeService, Color initialColor)
         {
-            _datetime = dateTime;
             _mathService = mathService;
+            _dateTimeService = dateTimeService;
             _secondBrush = new SolidBrush(initialColor);
             _minuteBrush = new SolidBrush(initialColor);
             _hourlyBrush = new SolidBrush(initialColor);
@@ -89,26 +163,45 @@ namespace Clocker.UI
                 throw new ArgumentNullException("graphics");
             }
 
-            var now = _datetime.Now;
+            var now = _dateTimeService.Now;
             var second = (now.Second / 60d);
             var minute = (now.Minute / 60d) + (second / 60d);
             var hourly = (now.Hour / 12d) + (minute / 12d);
 
-            DrawHand(_secondBrush, second, SecondLength, 0.005f, graphics);
-            DrawHand(_minuteBrush, minute, MinuteLength, 0.006f, graphics);
-            DrawHand(_hourlyBrush, hourly, HourLength, 0.01f, graphics);
-        }
-
-        private void DrawHand(Brush brush, double interval, double length, double width, IGraphicsService graphics)
-        {
-            graphics.FillPolygon(brush, new PointF[]
-            {
-                _mathService.GetPoint(interval + 0.25f, Center.CircleSize / 2),
-                _mathService.GetPoint(interval + width, length * 0.95f),
-                _mathService.GetPoint(interval, length),
-                _mathService.GetPoint(interval - width, length * 0.95f),
-                _mathService.GetPoint(interval - 0.25f, Center.CircleSize / 2)
-            });
+            Array.ForEach(new DrawArgs[] {
+                new DrawArgs
+                {
+                    Brush = _secondBrush,
+                    Angle = second,
+                    Length = Constants.SecondLength,
+                    MaxWidthLength = Constants.SecondMaxWidthLength,
+                    Width = Constants.SecondWidth
+                },
+                new DrawArgs
+                {
+                    Brush = _minuteBrush,
+                    Angle = minute,
+                    Length = Constants.MinuteLength,
+                    MaxWidthLength = Constants.MinuteMaxWidthLength,
+                    Width = Constants.MinuteWidth
+                },
+                new DrawArgs
+                {
+                    Brush = _hourlyBrush,
+                    Angle = hourly,
+                    Length = Constants.HourlyLength,
+                    MaxWidthLength = Constants.HourlyMaxWidthLength,
+                    Width = Constants.HourlyWidth
+                }
+            }, x =>
+                graphics.FillPolygon(x.Brush, new PointF[] {
+                    _mathService.GetPoint(x.Angle + Constants.QuarterCircle, Center.CircleSize / 2),
+                    _mathService.GetPoint(x.Angle + x.Width, x.Length * x.MaxWidthLength),
+                    _mathService.GetPoint(x.Angle, x.Length),
+                    _mathService.GetPoint(x.Angle - x.Width, x.Length * x.MaxWidthLength),
+                    _mathService.GetPoint(x.Angle - Constants.QuarterCircle, Center.CircleSize / 2)
+                })
+            );
         }
 
         /// <summary>
