@@ -8,7 +8,7 @@ namespace Clocker.UI
     /// <summary>
     /// Responsible for drawing 60 ticks on an analog clock.
     /// </summary>
-    public class Tick : IDrawable
+    public sealed class Tick : IDrawable
     {
 
         /// <summary>
@@ -82,17 +82,7 @@ namespace Clocker.UI
         /// </summary>
         public void Dispose()
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
+            if (_tickPen != null) _tickPen.Dispose();
         }
-
-        protected virtual void Dispose (bool disposing)
-        {
-            if (disposing)
-            {
-                if (_tickPen != null) _tickPen.Dispose();
-            }
-        }
-
     }
 }
