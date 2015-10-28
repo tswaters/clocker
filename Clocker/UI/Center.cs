@@ -78,11 +78,7 @@ namespace Clocker.UI
         {
             if (disposing)
             {
-                if (_brush != null)
-                {
-                    _brush.Dispose();
-                    _brush = null;
-                }
+                if (_brush != null) _brush.Dispose();
             }
         }
 

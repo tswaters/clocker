@@ -158,14 +158,14 @@ namespace Clocker
         {
             if (disposing)
             {
-                if (_resizeGrip != null) { _resizeGrip.Dispose(); }
-                if (_center != null) { _center.Dispose(); }
-                if (_background != null) { _background.Dispose();  }
-                if (_timer != null) { _timer.Dispose(); }
-                if (_hands != null) { _hands.Dispose(); }
-                if (_numerals != null) { _numerals.Dispose(); }
-                if (_ticks != null) { _ticks.Dispose(); }
-                if (_components != null) { _components.Dispose(); }
+                if (_resizeGrip != null) _resizeGrip.Dispose();
+                if (_center != null) _center.Dispose();
+                if (_background != null) _background.Dispose();
+                if (_timer != null) _timer.Dispose();
+                if (_hands != null) _hands.Dispose();
+                if (_numerals != null) _numerals.Dispose();
+                if (_ticks != null) _ticks.Dispose();
+                if (_components != null) _components.Dispose();
             }
             base.Dispose(disposing);
         }

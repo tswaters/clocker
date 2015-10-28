@@ -124,21 +124,9 @@ namespace Clocker.UI
         {
             if (disposing)
             {
-                if (_secondBrush != null)
-                {
-                    _secondBrush.Dispose();
-                    _secondBrush = null;
-                }
-                if (_minuteBrush != null)
-                {
-                    _minuteBrush.Dispose();
-                    _minuteBrush = null;
-                }
-                if (_hourlyBrush != null)
-                {
-                    _hourlyBrush.Dispose();
-                    _hourlyBrush = null;
-                }
+                if (_secondBrush != null) _secondBrush.Dispose();
+                if (_minuteBrush != null) _minuteBrush.Dispose();
+                if (_hourlyBrush != null) _hourlyBrush.Dispose();
             }
         }
     }

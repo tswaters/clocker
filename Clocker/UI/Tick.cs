@@ -90,11 +90,7 @@ namespace Clocker.UI
         {
             if (disposing)
             {
-                if (_tickPen != null)
-                {
-                    _tickPen.Dispose();
-                    _tickPen = null;
-                }
+                if (_tickPen != null) _tickPen.Dispose();
             }
         }
 
