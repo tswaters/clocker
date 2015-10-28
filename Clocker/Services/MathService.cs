@@ -53,12 +53,12 @@ namespace Clocker.Services
         /// <summary>
         /// Retrieve a point based on interval and length.
         /// </summary>
-        /// <param name="interval">value between 0 and 1</param>
+        /// <param name="angle">value between 0 and 1</param>
         /// <param name="length">length from the center.</param>
         /// <returns>PointF</returns>
-        public PointF GetPoint(double interval, double length)
+        public PointF GetPoint(double angle, double length)
         {
-            var value = (Math.PI * 2d * interval) - (Math.PI / 2d);
+            var value = (Math.PI * 2d * angle) - (Math.PI / 2d);
             var targetX = Center.X + (Math.Cos(value) * Radius * length);
             var targetY = Center.Y + (Math.Sin(value) * Radius * length);
             return new PointF((float)targetX, (float)targetY);

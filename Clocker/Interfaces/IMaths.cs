@@ -14,7 +14,7 @@ namespace Clocker.Interfaces
     {
         Rectangle Rectangle { get; set; }
         PointF Center { get; }
-        PointF GetPoint(double interval, double length);
+        PointF GetPoint(double angle, double length);
         Rectangle GetCenterRect(double size);
         Rectangle ResizeRect { get; }
     }
