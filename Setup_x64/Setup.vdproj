@@ -3,7 +3,7 @@
 "VSVersion" = "3:800"
 "ProjectType" = "8:{978C614F-708E-4E1A-B201-565925725DBA}"
 "IsWebType" = "8:FALSE"
-"ProjectName" = "8:Setup"
+"ProjectName" = "8:Setup_x64"
 "LanguageId" = "3:1033"
 "CodePage" = "3:1252"
 "UILanguageId" = "3:1033"
@@ -15,7 +15,13 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_24E8F8EB97C641529309129AD5BB3F32"
+        "MsmKey" = "8:_2B4A15303CE24D00B95BBA380CDCCA23"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_50772BC033BC429EB5B9D12C83394237"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -27,8 +33,38 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_CF4E7284AA204E3E97499BDA425016AF"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_EC7515C5D4854380A8743B538C2050B2"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_24E8F8EB97C641529309129AD5BB3F32"
+        "OwnerKey" = "8:_CF4E7284AA204E3E97499BDA425016AF"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_EC7515C5D4854380A8743B538C2050B2"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_50772BC033BC429EB5B9D12C83394237"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_2B4A15303CE24D00B95BBA380CDCCA23"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -39,7 +75,7 @@
         "DisplayName" = "8:Debug"
         "IsDebugOnly" = "11:TRUE"
         "IsReleaseOnly" = "11:FALSE"
-        "OutputFilename" = "8:Debug\\Setup.msi"
+        "OutputFilename" = "8:..\\bin\\x64\\Debug\\Setup.msi"
         "PackageFilesAs" = "3:2"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
@@ -56,6 +92,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.5"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.5 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.5"
+                    }
+                }
             }
         }
         "Release"
@@ -63,7 +107,7 @@
         "DisplayName" = "8:Release"
         "IsDebugOnly" = "11:FALSE"
         "IsReleaseOnly" = "11:TRUE"
-        "OutputFilename" = "8:Release\\Setup.msi"
+        "OutputFilename" = "8:..\\bin\\Setup_x64.msi"
         "PackageFilesAs" = "3:2"
         "PackageFileSize" = "3:-2147483648"
         "CabType" = "3:1"
@@ -75,7 +119,7 @@
         "InstallerBootstrapper" = "3:2"
             "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
             {
-            "Enabled" = "11:TRUE"
+            "Enabled" = "11:FALSE"
             "PromptEnabled" = "11:TRUE"
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
@@ -95,6 +139,34 @@
     {
         "CustomAction"
         {
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_215A81CA2A3347568284E645EEF1DBA0"
+            {
+            "Name" = "8:Primary output from Installer (Release Any CPU)"
+            "Condition" = "8:"
+            "Object" = "8:_EC7515C5D4854380A8743B538C2050B2"
+            "FileType" = "3:1"
+            "InstallAction" = "3:2"
+            "Arguments" = "8:"
+            "EntryPoint" = "8:"
+            "Sequence" = "3:1"
+            "Identifier" = "8:_BAF9E7A3_A3F2_450D_91CF_E0DC657755CF"
+            "InstallerClass" = "11:TRUE"
+            "CustomActionData" = "8:"
+            }
+            "{4AA51A2D-7D85-4A59-BA75-B0809FC8B380}:_63572BD62D5E4B1C8315D5D82D34577A"
+            {
+            "Name" = "8:Primary output from Installer (Release Any CPU)"
+            "Condition" = "8:"
+            "Object" = "8:_EC7515C5D4854380A8743B538C2050B2"
+            "FileType" = "3:1"
+            "InstallAction" = "3:1"
+            "Arguments" = "8:"
+            "EntryPoint" = "8:"
+            "Sequence" = "3:1"
+            "Identifier" = "8:_226E9189_EFF9_4EBB_9B62_F071F56CDF6A"
+            "InstallerClass" = "11:TRUE"
+            "CustomActionData" = "8:/Run=\"[RUN_CLOCKER]\""
+            }
         }
         "DefaultFeature"
         {
@@ -144,17 +216,6 @@
         }
         "Folder"
         {
-            "{1525181F-901A-416C-8A58-119130FE478E}:_19AC09EF78AE44129D2E73631BC9E9F1"
-            {
-            "Name" = "8:#1919"
-            "AlwaysCreate" = "11:FALSE"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Property" = "8:ProgramMenuFolder"
-                "Folders"
-                {
-                }
-            }
             "{1525181F-901A-416C-8A58-119130FE478E}:_6A54CA9E5A6242C39FA9B7541726C937"
             {
             "Name" = "8:#1928"
@@ -177,9 +238,31 @@
                 {
                 }
             }
+            "{1525181F-901A-416C-8A58-119130FE478E}:_8AD36AEAF30642BFA5F1F7E7B69E7A59"
+            {
+            "Name" = "8:#1919"
+            "AlwaysCreate" = "11:FALSE"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Property" = "8:ProgramMenuFolder"
+                "Folders"
+                {
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_E4DBCDF03F174A83ABE4C3F752C4B8E8"
+                    {
+                    "Name" = "8:Clocker"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_76FBE42A46A04FA48BD74DA47C83C443"
+                        "Folders"
+                        {
+                        }
+                    }
+                }
+            }
             "{3C67513D-01DD-4637-8A68-80971EB9504F}:_EDAE25A8990747FAB083AFF85D78B356"
             {
-            "DefaultLocation" = "8:[ProgramFilesFolder][ProductName]"
+            "DefaultLocation" = "8:[ProgramFiles64Folder][ProductName]"
             "Name" = "8:#1925"
             "AlwaysCreate" = "11:FALSE"
             "Condition" = "8:"
@@ -206,7 +289,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Clocker"
         "ProductCode" = "8:{E5A2EE5C-ABA8-4E12-A591-A24825AAB6FA}"
-        "PackageCode" = "8:{A325C6B4-85D1-4C1D-9D1F-FF071F0DE97E}"
+        "PackageCode" = "8:{E8E9AED7-5171-40CD-8FE8-4C47B2AB960F}"
         "UpgradeCode" = "8:{79569E28-415F-499A-901A-009D05D14DC9}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -217,17 +300,17 @@
         "Manufacturer" = "8:Tyler Waters"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
-        "Title" = "8:Setup"
+        "Title" = "8:Setup_x64"
         "Subject" = "8:"
         "ARPCONTACT" = "8:Tyler Waters"
         "Keywords" = "8:"
         "ARPCOMMENTS" = "8:"
         "ARPURLINFOABOUT" = "8:"
-        "ARPPRODUCTICON" = "8:"
+        "ARPPRODUCTICON" = "8:_BBF1381A04C5465B8E6368145D2882BE"
         "ARPIconIndex" = "3:0"
         "SearchPath" = "8:"
         "UseSystemSearchPath" = "11:TRUE"
-        "TargetPlatform" = "3:0"
+        "TargetPlatform" = "3:1"
         "PreBuildEvent" = "8:"
         "PostBuildEvent" = "8:"
         "RunPostBuildEvent" = "3:0"
@@ -326,7 +409,7 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_2B96266D94B6443E972FE5C95233144B"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_0DB8A08CFF684AEFBFF9DA82D6F28152"
             {
             "Name" = "8:Clocker"
             "Arguments" = "8:"
@@ -334,8 +417,22 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_24E8F8EB97C641529309129AD5BB3F32"
+            "Target" = "8:_2B4A15303CE24D00B95BBA380CDCCA23"
             "Folder" = "8:_6A54CA9E5A6242C39FA9B7541726C937"
+            "WorkingFolder" = "8:_EDAE25A8990747FAB083AFF85D78B356"
+            "Icon" = "8:_BBF1381A04C5465B8E6368145D2882BE"
+            "Feature" = "8:"
+            }
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_A1462E7BBAEB4F08806F603C5C5B4073"
+            {
+            "Name" = "8:Clocker"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_50772BC033BC429EB5B9D12C83394237"
+            "Folder" = "8:_E4DBCDF03F174A83ABE4C3F752C4B8E8"
             "WorkingFolder" = "8:_EDAE25A8990747FAB083AFF85D78B356"
             "Icon" = "8:_BBF1381A04C5465B8E6368145D2882BE"
             "Feature" = "8:"
@@ -519,13 +616,13 @@
             "Attributes" = "3:1"
                 "Dialogs"
                 {
-                    "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_4AE16712ACEF44FA88E21B52D8656E8C"
+                    "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_2E93B774C1474602BD802E70A1031ABD"
                     {
-                    "Sequence" = "3:100"
-                    "DisplayName" = "8:Welcome"
+                    "Sequence" = "3:200"
+                    "DisplayName" = "8:Checkboxes   (A)"
                     "UseDynamicProperties" = "11:TRUE"
                     "IsDependency" = "11:FALSE"
-                    "SourcePath" = "8:<VsdDialogDir>\\VsdWelcomeDlg.wid"
+                    "SourcePath" = "8:<VsdDialogDir>\\VsdCustomCheck1Dlg.wid"
                         "Properties"
                         {
                             "BannerBitmap"
@@ -539,37 +636,245 @@
                             "Setting" = "3:1"
                             "UsePlugInResources" = "11:TRUE"
                             }
-                            "CopyrightWarning"
+                            "BannerText"
                             {
-                            "Name" = "8:CopyrightWarning"
-                            "DisplayName" = "8:#1002"
-                            "Description" = "8:#1102"
+                            "Name" = "8:BannerText"
+                            "DisplayName" = "8:#1014"
+                            "Description" = "8:#1114"
                             "Type" = "3:3"
                             "ContextData" = "8:"
                             "Attributes" = "3:0"
-                            "Setting" = "3:1"
-                            "Value" = "8:#1202"
-                            "DefaultValue" = "8:#1202"
+                            "Setting" = "3:2"
+                            "Value" = "8:Additional Install Options for Clocker"
+                            "DefaultValue" = "8:#1214"
                             "UsePlugInResources" = "11:TRUE"
                             }
-                            "Welcome"
+                            "BodyText"
                             {
-                            "Name" = "8:Welcome"
-                            "DisplayName" = "8:#1003"
-                            "Description" = "8:#1103"
+                            "Name" = "8:BodyText"
+                            "DisplayName" = "8:#1015"
+                            "Description" = "8:#1115"
+                            "Type" = "3:3"
+                            "ContextData" = "8:"
+                            "Attributes" = "3:0"
+                            "Setting" = "3:2"
+                            "Value" = "8:Please select from the following additional installtion options..."
+                            "DefaultValue" = "8:#1215"
+                            "UsePlugInResources" = "11:TRUE"
+                            }
+                            "Checkbox1Label"
+                            {
+                            "Name" = "8:Checkbox1Label"
+                            "DisplayName" = "8:#1034"
+                            "Description" = "8:#1134"
+                            "Type" = "3:3"
+                            "ContextData" = "8:"
+                            "Attributes" = "3:0"
+                            "Setting" = "3:2"
+                            "Value" = "8:Include Clocker in your Start Menu"
+                            "DefaultValue" = "8:#1234"
+                            "UsePlugInResources" = "11:TRUE"
+                            }
+                            "Checkbox1Property"
+                            {
+                            "Name" = "8:Checkbox1Property"
+                            "DisplayName" = "8:#1030"
+                            "Description" = "8:#1130"
+                            "Type" = "3:14"
+                            "ContextData" = "8:Public"
+                            "Attributes" = "3:2"
+                            "Setting" = "3:2"
+                            "Value" = "8:INSTALL_STARTMENU"
+                            "DefaultValue" = "8:CHECKBOXA1"
+                            "UsePlugInResources" = "11:TRUE"
+                            }
+                            "Checkbox1Value"
+                            {
+                            "Name" = "8:Checkbox1Value"
+                            "DisplayName" = "8:#1038"
+                            "Description" = "8:#1138"
+                            "Type" = "3:2"
+                            "ContextData" = "8:Unchecked=;Checked=1"
+                            "Attributes" = "3:0"
+                            "Setting" = "3:2"
+                            "Value" = "8:1"
+                            "DefaultValue" = "8:"
+                            "UsePlugInResources" = "11:TRUE"
+                            }
+                            "Checkbox1Visible"
+                            {
+                            "Name" = "8:Checkbox1Visible"
+                            "DisplayName" = "8:#1026"
+                            "Description" = "8:#1126"
+                            "Type" = "3:5"
+                            "ContextData" = "8:1;True=1;False=0"
+                            "Attributes" = "3:0"
+                            "Setting" = "3:0"
+                            "Value" = "3:1"
+                            "DefaultValue" = "3:1"
+                            "UsePlugInResources" = "11:TRUE"
+                            }
+                            "Checkbox2Label"
+                            {
+                            "Name" = "8:Checkbox2Label"
+                            "DisplayName" = "8:#1035"
+                            "Description" = "8:#1135"
+                            "Type" = "3:3"
+                            "ContextData" = "8:"
+                            "Attributes" = "3:0"
+                            "Setting" = "3:2"
+                            "Value" = "8:Include Clocker in your Startup menu"
+                            "DefaultValue" = "8:#1235"
+                            "UsePlugInResources" = "11:TRUE"
+                            }
+                            "Checkbox2Property"
+                            {
+                            "Name" = "8:Checkbox2Property"
+                            "DisplayName" = "8:#1031"
+                            "Description" = "8:#1131"
+                            "Type" = "3:14"
+                            "ContextData" = "8:Public"
+                            "Attributes" = "3:2"
+                            "Setting" = "3:2"
+                            "Value" = "8:INSTALL_STARTUP"
+                            "DefaultValue" = "8:CHECKBOXA2"
+                            "UsePlugInResources" = "11:TRUE"
+                            }
+                            "Checkbox2Value"
+                            {
+                            "Name" = "8:Checkbox2Value"
+                            "DisplayName" = "8:#1039"
+                            "Description" = "8:#1139"
+                            "Type" = "3:2"
+                            "ContextData" = "8:Unchecked=;Checked=1"
+                            "Attributes" = "3:0"
+                            "Setting" = "3:2"
+                            "Value" = "8:1"
+                            "DefaultValue" = "8:"
+                            "UsePlugInResources" = "11:TRUE"
+                            }
+                            "Checkbox2Visible"
+                            {
+                            "Name" = "8:Checkbox2Visible"
+                            "DisplayName" = "8:#1027"
+                            "Description" = "8:#1127"
+                            "Type" = "3:5"
+                            "ContextData" = "8:1;True=1;False=0"
+                            "Attributes" = "3:0"
+                            "Setting" = "3:0"
+                            "Value" = "3:1"
+                            "DefaultValue" = "3:1"
+                            "UsePlugInResources" = "11:TRUE"
+                            }
+                            "Checkbox3Label"
+                            {
+                            "Name" = "8:Checkbox3Label"
+                            "DisplayName" = "8:#1036"
+                            "Description" = "8:#1136"
+                            "Type" = "3:3"
+                            "ContextData" = "8:"
+                            "Attributes" = "3:0"
+                            "Setting" = "3:2"
+                            "Value" = "8:Run Clocker when setup is finished"
+                            "DefaultValue" = "8:#1236"
+                            "UsePlugInResources" = "11:TRUE"
+                            }
+                            "Checkbox3Property"
+                            {
+                            "Name" = "8:Checkbox3Property"
+                            "DisplayName" = "8:#1032"
+                            "Description" = "8:#1132"
+                            "Type" = "3:14"
+                            "ContextData" = "8:Public"
+                            "Attributes" = "3:2"
+                            "Setting" = "3:2"
+                            "Value" = "8:RUN_CLOCKER"
+                            "DefaultValue" = "8:CHECKBOXA3"
+                            "UsePlugInResources" = "11:TRUE"
+                            }
+                            "Checkbox3Value"
+                            {
+                            "Name" = "8:Checkbox3Value"
+                            "DisplayName" = "8:#1040"
+                            "Description" = "8:#1140"
+                            "Type" = "3:2"
+                            "ContextData" = "8:Unchecked=;Checked=1"
+                            "Attributes" = "3:0"
+                            "Setting" = "3:2"
+                            "Value" = "8:1"
+                            "DefaultValue" = "8:"
+                            "UsePlugInResources" = "11:TRUE"
+                            }
+                            "Checkbox3Visible"
+                            {
+                            "Name" = "8:Checkbox3Visible"
+                            "DisplayName" = "8:#1028"
+                            "Description" = "8:#1128"
+                            "Type" = "3:5"
+                            "ContextData" = "8:1;True=1;False=0"
+                            "Attributes" = "3:0"
+                            "Setting" = "3:0"
+                            "Value" = "3:1"
+                            "DefaultValue" = "3:1"
+                            "UsePlugInResources" = "11:TRUE"
+                            }
+                            "Checkbox4Label"
+                            {
+                            "Name" = "8:Checkbox4Label"
+                            "DisplayName" = "8:#1037"
+                            "Description" = "8:#1137"
                             "Type" = "3:3"
                             "ContextData" = "8:"
                             "Attributes" = "3:0"
                             "Setting" = "3:1"
-                            "Value" = "8:#1203"
-                            "DefaultValue" = "8:#1203"
+                            "Value" = "8:#1237"
+                            "DefaultValue" = "8:#1237"
+                            "UsePlugInResources" = "11:TRUE"
+                            }
+                            "Checkbox4Property"
+                            {
+                            "Name" = "8:Checkbox4Property"
+                            "DisplayName" = "8:#1033"
+                            "Description" = "8:#1133"
+                            "Type" = "3:14"
+                            "ContextData" = "8:Public"
+                            "Attributes" = "3:2"
+                            "Setting" = "3:2"
+                            "Value" = "8:CHECKBOXA4"
+                            "DefaultValue" = "8:CHECKBOXA4"
+                            "UsePlugInResources" = "11:TRUE"
+                            }
+                            "Checkbox4Value"
+                            {
+                            "Name" = "8:Checkbox4Value"
+                            "DisplayName" = "8:#1041"
+                            "Description" = "8:#1141"
+                            "Type" = "3:2"
+                            "ContextData" = "8:Unchecked=;Checked=1"
+                            "Attributes" = "3:0"
+                            "Setting" = "3:2"
+                            "Value" = "8:"
+                            "DefaultValue" = "8:"
+                            "UsePlugInResources" = "11:TRUE"
+                            }
+                            "Checkbox4Visible"
+                            {
+                            "Name" = "8:Checkbox4Visible"
+                            "DisplayName" = "8:#1029"
+                            "Description" = "8:#1129"
+                            "Type" = "3:5"
+                            "ContextData" = "8:1;True=1;False=0"
+                            "Attributes" = "3:0"
+                            "Setting" = "3:0"
+                            "Value" = "3:0"
+                            "DefaultValue" = "3:1"
                             "UsePlugInResources" = "11:TRUE"
                             }
                         }
                     }
                     "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_55EE0B6A65E44A0DB9831DF3EA470A03"
                     {
-                    "Sequence" = "3:200"
+                    "Sequence" = "3:300"
                     "DisplayName" = "8:Installation Folder"
                     "UseDynamicProperties" = "11:TRUE"
                     "IsDependency" = "11:FALSE"
@@ -604,7 +909,7 @@
                     }
                     "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_70A38A64B51046B683BE534387ACA3ED"
                     {
-                    "Sequence" = "3:300"
+                    "Sequence" = "3:400"
                     "DisplayName" = "8:Confirm Installation"
                     "UseDynamicProperties" = "11:TRUE"
                     "IsDependency" = "11:FALSE"
@@ -739,9 +1044,9 @@
         }
         "ProjectOutput"
         {
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_24E8F8EB97C641529309129AD5BB3F32"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_2B4A15303CE24D00B95BBA380CDCCA23"
             {
-            "SourcePath" = "8:..\\Clocker\\obj\\Release\\Clocker.exe"
+            "SourcePath" = "8:..\\Clocker\\obj\\x64\\Release\\Clocker.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_EDAE25A8990747FAB083AFF85D78B356"
@@ -759,9 +1064,93 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             "ProjectOutputGroupRegister" = "3:1"
-            "OutputConfiguration" = "8:"
+            "OutputConfiguration" = "8:Release|x64"
             "OutputGroupCanonicalName" = "8:Built"
             "OutputProjectGuid" = "8:{AE08EE13-AB8B-49D8-9837-3B815D3510C8}"
+            "ShowKeyOutput" = "11:TRUE"
+                "ExcludeFilters"
+                {
+                }
+            }
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_50772BC033BC429EB5B9D12C83394237"
+            {
+            "SourcePath" = "8:..\\Clocker\\obj\\x64\\Release\\Clocker.exe"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_EDAE25A8990747FAB083AFF85D78B356"
+            "Condition" = "8:INSTALL_STARTMENU=1"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:1"
+            "OutputConfiguration" = "8:Release|x64"
+            "OutputGroupCanonicalName" = "8:Built"
+            "OutputProjectGuid" = "8:{AE08EE13-AB8B-49D8-9837-3B815D3510C8}"
+            "ShowKeyOutput" = "11:TRUE"
+                "ExcludeFilters"
+                {
+                }
+            }
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_CF4E7284AA204E3E97499BDA425016AF"
+            {
+            "SourcePath" = "8:..\\Clocker\\obj\\x64\\Release\\Clocker.exe"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_EDAE25A8990747FAB083AFF85D78B356"
+            "Condition" = "8:INSTALL_STARTUP=1"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:1"
+            "OutputConfiguration" = "8:Release|x64"
+            "OutputGroupCanonicalName" = "8:Built"
+            "OutputProjectGuid" = "8:{AE08EE13-AB8B-49D8-9837-3B815D3510C8}"
+            "ShowKeyOutput" = "11:TRUE"
+                "ExcludeFilters"
+                {
+                }
+            }
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_EC7515C5D4854380A8743B538C2050B2"
+            {
+            "SourcePath" = "8:..\\Installer\\obj\\Release\\Installer.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_EDAE25A8990747FAB083AFF85D78B356"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:1"
+            "OutputConfiguration" = "8:Release|Any CPU"
+            "OutputGroupCanonicalName" = "8:Built"
+            "OutputProjectGuid" = "8:{D162ED22-4B24-48F8-BA88-778A9ABBC053}"
             "ShowKeyOutput" = "11:TRUE"
                 "ExcludeFilters"
                 {
